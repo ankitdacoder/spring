@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+  <context:property-placeholder location="src/app.properties"/>
+
+	<!-- calling default constrcutor -->
+	<bean id="fruit" class="main.Fruit" />
+	<bean id="veg" class="main.Vegitable" />
+	<!-- setting value to non-default or parameter construtor -->
+	<bean id="myFruit" class="main.Fruit">
+		<constructor-arg index="0" value="Apple" />
+	</bean>
+
+
+	<bean id="myfruit" class="main.Fruit">
+		<property name="myName" value="banana" />
+	</bean>
+
+	<!-- Setting Bean Property -->
+	<bean id="myVegitable" class="main.Vegitable">
+		<property name="myName" value="LadisFinger" />
+	</bean>
+
+	<!-- Setting collection type property -->
+
+	<bean id="sports" class="main.Sports">
+
+		<property name="gamesList">
+			<list>
+				<value>Cricket</value>
+				<value>Football</value>
+				<value>Tenis</value>
+				<value>Hocky</value>
+			</list>
+		</property>
+
+		<property name="gamesMap">
+			<map>
+				<entry key="cricket" value="M.S.Dhoni" />
+				<entry key="football" value="Ronaldo" />
+				<entry key="tenis" value="sania mirza" />
+
+
+			</map>
+		</property>
+	</bean>
+
+	<!-- setting beans using setter injection -->
+	<bean id="pnamespace" class="main.Vegitable"
+		p:myName="TestNameSpace" />
+	<bean id="meal" class="main.Meal">
+		<property name="fruit" ref="myfruit" />
+		<property name="veg" ref="myVegitable" />
+	</bean>
+
+	<bean id="mealCons" class="main.Meal">
+		<!-- <constructor-arg index="0" ref="fruit"/> -->
+		<constructor-arg name="f" ref="fruit" />
+
+		<constructor-arg name="v" ref="veg" />
+
+	</bean>
+	
+	<bean id="myFruitPro" class="main.Fruit">
+	  <property name="myDefination" value="${fruit}"/>
+	</bean>
+	
+	<!-- init and destroy bean  -->
+	<bean id="myMobile" class="main.Mobile" init-method="initMethod" destroy-method="destoryMethod">
+	 <!-- <property name="name" value="Iphone-6s"/>
+	  --> 
+	</bean>
+	
+   <!-- AutoWired byType  -->
+   <bean id="autoWiredByType" class="main.Mobile" autowire="constructor"/>
+   
+	
+
+</beans>
